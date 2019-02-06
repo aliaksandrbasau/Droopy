@@ -208,7 +208,7 @@ class HTTPUploadHandler(httpserver.BaseHTTPRequestHandler):
     publish_files = False
     file_mode = None
     protocol_version = 'HTTP/1.0'
-    form_field = 'upfile'
+    form_field = 'file'
     auth = ''
     certfile = None
     divpicture = '<div class="box"><img src="/__droopy/picture"/></div>'
@@ -329,9 +329,6 @@ class HTTPUploadHandler(httpserver.BaseHTTPRequestHandler):
                 root, ext = os.path.splitext(localpath)
                 i = 1
                 # TODO: race condition...
-                while os.path.exists(localpath):
-                    localpath = "%s-%d%s" % (root, i, ext)
-                    i = i + 1
                 if hasattr(item, 'tmpfile'):
                     # DroopyFieldStorage.make_file() has been called
                     item.tmpfile.close()
@@ -546,7 +543,7 @@ function onunload() {
 <div id="wrapform">
   <div id="form" class="box">
     <form method="post" enctype="multipart/form-data" action="">
-      <input name="upfile" type="file" multiple="yes">
+      <input name="file" type="file" multiple="yes">
       <input value="%(submit)s" onclick="swap()" type="submit">
     </form>
   </div>
